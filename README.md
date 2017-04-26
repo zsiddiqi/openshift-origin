@@ -1,3 +1,3 @@
 # OpenShift Origin Deployment Template
 
-TODO: Create a file called LICENSE (not LICENSE.TXT, LICENSE.md, etc.)…
+For the **OpenShift Container Platform** refer to https://github.com/Microsoft/openshift-container-platform
