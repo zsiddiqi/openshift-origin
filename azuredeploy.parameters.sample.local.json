@@ -15,46 +15,46 @@
 			"value": "centos"
 		},
 		"openshiftMasterHostname": {
-			"value": "changeme"
+			"value": "master"
 		},
 		"openshiftMasterPublicIpDnsLabelPrefix": {
-			"value": "changeme"
+			"value": "me-master1"
 		},
 		"nodeLbPublicIpDnsLabelPrefix": {
-			"value": "changeme"
+			"value": "me-node1"
 		},
 		"nodePrefix": {
-			"value": "changeme"
+			"value": "node"
 		},
 		"nodeInstanceCount": {
-			"value": 1
+			"value": 2
 		},
 		"adminUsername": {
-			"value": "changeme"
+			"value": "azureuser"
 		},
 		"adminPassword": {
-			"value": "changeme"
+			"value": "ThisIsYourSampleSecret!ShouldStayLocal!"
 		},
 		"sshPublicKey": {
-			"value": "changeme"
+			"value": "ssh-rsa AAAAB3...Public...Key...You...Created...In...Prep...Steps...swXg5szN"
 		},
 		"subscriptionId": {
-			"value": "changeme"
+			"value": "d1230000-0000-0000-0000-000000000000"
 		},
 		"keyVaultResourceGroup": {
-			"value": "changeme"
+			"value": "OpenShiftRG1"
 		},
 		"keyVaultName": {
-			"value": "changeme"
+			"value": "OpenShiftKV"
 		},
 		"keyVaultSecret": {
-			"value": "changeme"
+			"value": "OpenShiftPK1"
 		},
 		"defaultSubDomainType": {
 			"value": "xipio"
 		},
 		"defaultSubDomain": {
-			"value": "changeme"
+			"value": "domain-name-all-lowercase-if-custom-used.com"
 		}
 	}
 }
