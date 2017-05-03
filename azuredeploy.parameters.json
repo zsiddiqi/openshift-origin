@@ -38,9 +38,6 @@
 		"sshPublicKey": {
 			"value": "changeme"
 		},
-		"subscriptionId": {
-			"value": "changeme"
-		},
 		"keyVaultResourceGroup": {
 			"value": "changeme"
 		},
