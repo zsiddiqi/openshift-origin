@@ -5,34 +5,43 @@
 		"_artifactsLocation": {
 			"value": "https://raw.githubusercontent.com/Microsoft/openshift-origin/master/"
 		},
-		"masterVmSize": {
-			"value": "Standard_DS3_v2"
-		},
-		"nodeVmSize": {
-			"value": "Standard_DS3_v2"
-		},
 		"osImage": {
 			"value": "centos"
 		},
-		"openshiftMasterHostname": {
+		"masterVmSize": {
+			"value": "Standard_DS2_v2"
+		},
+		"infraVmSize": {
+			"value": "Standard_DS2_v2"
+		},
+		"nodeVmSize": {
+			"value": "Standard_DS2_v2"
+		},
+		"openshiftClusterPrefix": {
 			"value": "changeme"
 		},
 		"openshiftMasterPublicIpDnsLabelPrefix": {
 			"value": "changeme"
 		},
-		"nodeLbPublicIpDnsLabelPrefix": {
+		"infraLbPublicIpDnsLabelPrefix": {
 			"value": "changeme"
 		},
-		"nodePrefix": {
-			"value": "changeme"
+		"masterInstanceCount": {
+			"value": 1
+		},
+		"infraInstanceCount": {
+			"value": 1
 		},
 		"nodeInstanceCount": {
 			"value": 1
 		},
+		"dataDiskSize": {
+			"value": 128
+		},
 		"adminUsername": {
 			"value": "changeme"
 		},
-		"adminPassword": {
+		"openshiftPassword": {
 			"value": "changeme"
 		},
 		"sshPublicKey": {
@@ -45,6 +54,12 @@
 			"value": "changeme"
 		},
 		"keyVaultSecret": {
+			"value": "changeme"
+		},
+		"aadClientId": {
+			"value": "changeme"
+		},
+		"aadClientSecret": {
 			"value": "changeme"
 		},
 		"defaultSubDomainType": {
