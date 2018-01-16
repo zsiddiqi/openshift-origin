@@ -14,6 +14,9 @@
 		"nodeVmSize": {
 			"value": "Standard_DS2_v2"
 		},
+		"storageKind": {
+			"value": "changeme"
+		},
 		"openshiftClusterPrefix": {
 			"value": "changeme"
 		},
@@ -35,6 +38,15 @@
 		"openshiftPassword": {
 			"value": "changeme"
 		},
+		"enableMetrics": {
+			"value": "false"
+		},
+		"enableLogging": {
+			"value": "false"
+		},
+		"enableCockpit": {
+			"value": "false"
+		},
 		"sshPublicKey": {
 			"value": "changeme"
 		},
@@ -46,6 +58,9 @@
 		},
 		"keyVaultSecret": {
 			"value": "changeme"
+		},
+		"enableAzure": {
+			"value": "false"
 		},
 		"aadClientId": {
 			"value": "changeme"
