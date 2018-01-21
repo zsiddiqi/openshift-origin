@@ -185,6 +185,7 @@ cat > /home/${SUDOUSER}/setup-azure-master.yml <<EOF
           "subscriptionID" : "{{ g_subscriptionId }}",
           "tenantID" : "{{ g_tenantId }}",
           "resourceGroup": "{{ g_resourceGroup }}",
+          "location": "{{ g_location }}"
         } 
     notify:
     - restart origin-master-api
@@ -251,6 +252,7 @@ cat > /home/${SUDOUSER}/setup-azure-node-master.yml <<EOF
           "subscriptionID" : "{{ g_subscriptionId }}",
           "tenantID" : "{{ g_tenantId }}",
           "resourceGroup": "{{ g_resourceGroup }}",
+          "location": "{{ g_location }}"
         } 
     notify:
     - restart origin-node
@@ -306,6 +308,7 @@ cat > /home/${SUDOUSER}/setup-azure-node.yml <<EOF
           "subscriptionID" : "{{ g_subscriptionId }}",
           "tenantID" : "{{ g_tenantId }}",
           "resourceGroup": "{{ g_resourceGroup }}",
+          "location": "{{ g_location }}"
         } 
     notify:
     - restart origin-node
@@ -324,31 +327,39 @@ cat > /home/${SUDOUSER}/setup-azure-node.yml <<EOF
       - azure
     notify:
     - restart origin-node
-  - name: delete the node so it can recreate itself
-    command: oc delete node {{inventory_hostname}}
-    delegate_to: ${MASTER}-0
-  - name: sleep to let node come back to life
-    pause:
-       seconds: 90
 EOF
 
 # Create Playbook to delete stuck Master nodes and set as not schedulable
 
-cat > /home/${SUDOUSER}/deletestucknodes.yml <<EOF
+cat > /home/${SUDOUSER}/deletestuckmasternodes.yml <<EOF
 - hosts: masters
   gather_facts: no
   become: yes
   vars:
-    description: "Delete stuck nodes"
+    description: "Delete stuck master nodes"
   tasks:
   - name: Delete stuck nodes so it can recreate itself
     command: oc delete node {{inventory_hostname}}
     delegate_to: ${MASTER}-0
   - name: sleep between deletes
     pause:
-      seconds: 25
+      seconds: 60
   - name: set masters as unschedulable
     command: oadm manage-node {{inventory_hostname}} --schedulable=false
+EOF
+
+# Create Playbook to delete stuck infra and app nodes
+
+cat > /home/${SUDOUSER}/deletestucknodes.yml <<EOF
+- hosts: nodes:!masters
+  gather_facts: no
+  become: yes
+  vars:
+    description: "Delete stuck infra and app nodes"
+  tasks:
+  - name: Delete stuck nodes so it can recreate itself
+    command: oc delete node {{inventory_hostname}}
+    delegate_to: ${MASTER}-0
 EOF
 
 # Create Ansible Hosts File
@@ -375,7 +386,7 @@ openshift_use_dnsmasq=True
 openshift_master_default_subdomain=$ROUTING
 openshift_override_hostname_check=true
 osm_use_cockpit=false
-#os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
 #console_port=443
 openshift_cloudprovider_kind=azure
 osm_default_node_selector='type=app'
@@ -383,6 +394,8 @@ openshift_disable_check=disk_availability,memory_availability
 # default selectors for router and registry services
 openshift_router_selector='type=infra'
 openshift_registry_selector='type=infra'
+
+openshift_use_openshift_sdn=true
 
 openshift_master_cluster_method=native
 openshift_master_cluster_hostname=$MASTERPUBLICIPHOSTNAME
@@ -502,6 +515,7 @@ echo $(date) "- Configuring OpenShift Cloud Provider to be Azure"
 
 runuser -l $SUDOUSER -c "ansible-playbook ~/setup-azure-master.yml"
 runuser -l $SUDOUSER -c "ansible-playbook ~/setup-azure-node-master.yml"
+runuser -l $SUDOUSER -c "ansible-playbook ~/deletestuckmasternodes.yml"
 runuser -l $SUDOUSER -c "ansible-playbook ~/setup-azure-node.yml"
 runuser -l $SUDOUSER -c "ansible-playbook ~/deletestucknodes.yml"
 
@@ -516,6 +530,7 @@ rm /home/${SUDOUSER}/vars.yml
 rm /home/${SUDOUSER}/setup-azure-master.yml
 rm /home/${SUDOUSER}/setup-azure-node-master.yml
 rm /home/${SUDOUSER}/setup-azure-node.yml
+rm /home/${SUDOUSER}/deletestuckmasternodes.yml
 rm /home/${SUDOUSER}/deletestucknodes.yml
 
 echo $(date) " - Script complete"
