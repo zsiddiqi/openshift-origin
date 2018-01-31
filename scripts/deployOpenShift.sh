@@ -469,6 +469,9 @@ openshift_logging_curator_nodeselector={"type":"infra"}
 openshift_master_logging_public_url=https://kibana.$ROUTING
 openshift_logging_master_public_url=https://$MASTERPUBLICIPHOSTNAME:8443
 
+# enable ntp on masters to ensure proper failover
+openshift_clock_enabled=true
+
 # host group for masters
 [masters]
 $MASTER-[0:${MASTERLOOP}]
