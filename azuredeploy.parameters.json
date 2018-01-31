@@ -30,7 +30,7 @@
 			"value": 1
 		},
 		"dataDiskSize": {
-			"value": 48
+			"value": 64
 		},
 		"adminUsername": {
 			"value": "changeme"
