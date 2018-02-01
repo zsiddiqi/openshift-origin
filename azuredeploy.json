@@ -1820,7 +1820,8 @@
 				}
 			}
 			]
-		},
+		}
+	],
 	"outputs": {
 		"Openshift Console Url": {
 			"type": "string",
