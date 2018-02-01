@@ -180,6 +180,15 @@
 				"description": "Size of Datadisk in GB for Docker volume"
 			}
 		},
+		"gfsDiskSize": {
+			"type": "int",
+			"defaultValue": 128,
+			"minValue": 1,
+			"allowedValues": [32, 64, 128, 256, 512, 1024, 2048],
+			"metadata": {
+				"description": "Size of raw disk in GB for Glusterfs volume"
+			}
+		},
 		"adminUsername": {
 			"type": "string",
 			"defaultValue": "ocpadmin",
@@ -311,6 +320,8 @@
 		"newStorageAccountInfra": "[concat('infra', uniqueString(concat(resourceGroup().id, 'infra')))]",
 		"newStorageAccountNodeOs": "[concat('nodeos', uniqueString(concat(resourceGroup().id, 'nodeossa')))]",
 		"newStorageAccountNodeData": "[concat('nodedata', uniqueString(concat(resourceGroup().id, 'nodedatasa')))]",
+		"newStorageAccountNodeGfs1": "[concat('nodegfs1', uniqueString(concat(resourceGroup().id, 'nodegfs1sa')))]",
+		"newStorageAccountNodeGfs2": "[concat('nodegfs2', uniqueString(concat(resourceGroup().id, 'nodegfs2sa')))]",
 		"diagStorageAccount1": "[concat('diag1', uniqueString(concat(resourceGroup().id, 'dsa1')))]",
 		"diagStorageAccount2": "[concat('diag2', uniqueString(concat(resourceGroup().id, 'dsa2')))]",
 		"newStorageAccountRegistry": "[concat('registry', uniqueString(concat(resourceGroup().id, 'registry')))]",
@@ -323,6 +334,8 @@
 			{ "name": "[variables('newStorageAccountInfra')]", "tagName": "InfraStorageAccount", "skuName": "[variables('storageSkuObject').infra.skuName]", "skuTier": "[variables('storageSkuObject').infra.skuTier]" },
 			{ "name": "[variables('newStorageAccountNodeOs')]", "tagName": "NodeStorageAccount", "skuName": "[variables('storageSkuObject').node.skuName]", "skuTier": "[variables('storageSkuObject').node.skuTier]" },
 			{ "name": "[variables('newStorageAccountNodeData')]", "tagName": "NodeStorageAccount", "skuName": "[variables('storageSkuObject').node.skuName]", "skuTier": "[variables('storageSkuObject').node.skuTier]" },
+			{ "name": "[variables('newStorageAccountNodeGfs1')]", "tagName": "NodeStorageAccount", "skuName": "[variables('storageSkuObject').node.skuName]", "skuTier": "[variables('storageSkuObject').node.skuTier]" },
+			{ "name": "[variables('newStorageAccountNodeGfs2')]", "tagName": "NodeStorageAccount", "skuName": "[variables('storageSkuObject').node.skuName]", "skuTier": "[variables('storageSkuObject').node.skuTier]" },
 			{ "name": "[variables('newStorageAccountPersistentVolume1')]", "tagName": "PersistentVolume1StorageAccount", "skuName": "[variables('storageSkuObject').persistent.skuName]", "skuTier": "[variables('storageSkuObject').persistent.skuTier]" }
 		],
 		"availabilitySetArray": [
@@ -362,7 +375,7 @@
 				"skuTier": "Standard"
 			}
 		},
-		"managedStorageCount": 3,
+		"managedStorageCount": 5,
 		"unmanagedStorageCount": "[length(variables('newStorageAccountArray'))]",
 		"storageLoopCount": "[concat(parameters('storageKind'), 'StorageCount')]",
 		"unmanagedMasterUri": "[variables('newStorageAccountMaster')]",
@@ -372,11 +385,17 @@
 		"unmanagedNodeOsUri": "[variables('newStorageAccountNodeOs')]",
 		"managedNodeOsUri": "[variables('diagStorageAccount1')]",
 		"unmanagedNodeDataUri": "[variables('newStorageAccountNodeData')]",
-		"managedNodeDataUri": "[variables('diagStorageAccount1')]",
+		"unmanagedNodeGfs1Uri": "[variables('newStorageAccountNodeGfs1')]",
+		"unmanagedNodeGfs2Uri": "[variables('newStorageAccountNodeGfs2')]",
+		"managedNodeDataUri": "[variables('diagStorageAccount2')]",
+		"managedNodeGfs1Uri": "[variables('diagStorageAccount2')]",
+		"managedNodeGfs2Uri": "[variables('diagStorageAccount2')]",
 		"masterUri": "[concat(parameters('storageKind'), 'MasterUri')]",
 		"infraUri": "[concat(parameters('storageKind'), 'InfraUri')]",
 		"nodeOsUri": "[concat(parameters('storageKind'), 'NodeOsUri')]",
 		"nodeDataUri": "[concat(parameters('storageKind'), 'NodeDataUri')]",
+		"nodeGfs1Uri": "[concat(parameters('storageKind'), 'NodeGfs1Uri')]",
+		"nodeGfs2Uri": "[concat(parameters('storageKind'), 'NodeGfs2Uri')]",
 		"addressPrefix": "10.0.0.0/8",
 		"masterSubnetPrefix": "10.1.0.0/16",
 		"nodeSubnetPrefix": "10.2.0.0/16",
@@ -1565,6 +1584,12 @@
 					"dataDiskSize": {
 						"value": "[parameters('dataDiskSize')]"
 					},
+					"gfs1DiskSize": {
+						"value": "[parameters('gfsDiskSize')]"
+					},
+					"gfs2DiskSize": {
+						"value": "[parameters('gfsDiskSize')]"
+					},
 					"adminUsername": {
 						"value": "[parameters('adminUsername')]"
 					},
@@ -1583,6 +1608,12 @@
 					"unmanagedDataDiskUri": {
 						"value": "[reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables(variables('nodeDataUri'))), variables('apiVersionStorage')).primaryEndpoints['blob']]"
 					},
+					"unmanagedDataGfs1Uri": {
+						"value": "[reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables(variables('nodeGfs1Uri'))), variables('apiVersionStorage')).primaryEndpoints['blob']]"
+					},
+					"unmanagedDataGfs2Uri": {
+						"value": "[reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables(variables('nodeGfs2Uri'))), variables('apiVersionStorage')).primaryEndpoints['blob']]"
+					},
 					"role": {
 						"value": "appnode"
 					},
@@ -1597,6 +1628,12 @@
 					},
 					"newStorageAccountData": {
 						"value": "[variables('newStorageAccountNodeData')]"
+					},
+					"newStorageAccountGfs1": {
+						"value": "[variables('newStorageAccountNodeGfs1')]"
+					},
+					"newStorageAccountGfs2": {
+						"value": "[variables('newStorageAccountNodeGfs2')]"
 					},
 					"diagStorageAccount": {
 						"value": "[variables('diagStorageAccount2')]"
