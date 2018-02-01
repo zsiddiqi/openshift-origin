@@ -440,9 +440,9 @@ openshift_master_cluster_public_vip=$MASTERPUBLICIPADDRESS
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
 # Enable service catalog
-openshift_enable_service_catalog=false
+openshift_enable_service_catalog=true
 # Enable template service broker (requires service catalog to be enabled, above)
-template_service_broker_install=false
+template_service_broker_install=true
 # Configure one of more namespaces whose templates will be served by the TSB
 openshift_template_service_broker_namespaces=['openshift']
 # Disable the OpenShift SDN plugin
@@ -505,7 +505,7 @@ done
 
 for (( c=0; c<$NODECOUNT; c++ ))
 do
-  echo "$NODE-$c openshift_node_labels=\"{'type': 'app', 'zone': 'default'}\" openshift_hostname=$NODE-$c" >> /etc/ansible/hosts
+  echo "$NODE-$c openshift_node_labels=\"{'type': 'app', 'zone': 'east'}\" openshift_hostname=$NODE-$c" >> /etc/ansible/hosts
 done
 
 # Create new_nodes group
@@ -697,14 +697,14 @@ fi
 echo $(date) "- Deleting post installation files"
 
 
-rm /home/${SUDOUSER}/addocpuser.yml
-rm /home/${SUDOUSER}/assignclusteradminrights.yml
-rm /home/${SUDOUSER}/dockerregistry.yml
-rm /home/${SUDOUSER}/assignrootpassword.yml
-rm /home/${SUDOUSER}/setup-azure-master.yml
-rm /home/${SUDOUSER}/setup-azure-node-master.yml
-rm /home/${SUDOUSER}/setup-azure-node.yml
-rm /home/${SUDOUSER}/masternonschedulable.yml
-rm /home/${SUDOUSER}/reboot-nodes.yml
+# rm /home/${SUDOUSER}/addocpuser.yml
+# rm /home/${SUDOUSER}/assignclusteradminrights.yml
+# rm /home/${SUDOUSER}/dockerregistry.yml
+# rm /home/${SUDOUSER}/assignrootpassword.yml
+# rm /home/${SUDOUSER}/setup-azure-master.yml
+# rm /home/${SUDOUSER}/setup-azure-node-master.yml
+# rm /home/${SUDOUSER}/setup-azure-node.yml
+# rm /home/${SUDOUSER}/masternonschedulable.yml
+# rm /home/${SUDOUSER}/reboot-nodes.yml
 
 echo $(date) " - Script complete"
