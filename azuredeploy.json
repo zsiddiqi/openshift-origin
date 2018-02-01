@@ -1616,7 +1616,7 @@
 				}
 			}
 		}, {
-			"type": "Microsoft.DevTestLab/labs/virtualmachines/extensions",
+			"type": "Microsoft.Compute/virtualMachines/extensions",
 			"name": "[concat(variables('openshiftMasterHostname'), '-', copyIndex(), '/deployOpenShift')]",
 			"location": "[variables('location')]",
 			"apiVersion": "[variables('apiVersionCompute')]",
@@ -1647,7 +1647,7 @@
 				}
 			}
 		}, {
-			"type": "Microsoft.DevTestLab/labs/virtualmachines/extensions",
+			"type": "Microsoft.Compute/virtualMachines/extensions",
 			"name": "[concat(variables('openshiftInfraHostname'), '-', copyIndex(), '/prepNodes')]",
 			"location": "[variables('location')]",
 			"apiVersion": "[variables('apiVersionCompute')]",
@@ -1678,7 +1678,7 @@
 				}
 			}
 		}, {
-			"type": "Microsoft.DevTestLab/labs/virtualmachines/extensions",
+			"type": "Microsoft.Compute/virtualMachines/extensions",
 			"name": "[concat(variables('openshiftNodeHostname'), '-', copyIndex(), '/prepNodes')]",
 			"location": "[variables('location')]",
 			"apiVersion": "[variables('apiVersionCompute')]",
