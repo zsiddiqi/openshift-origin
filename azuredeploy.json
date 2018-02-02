@@ -1324,9 +1324,6 @@
 					"newStorageAccountData": {
 						"value": "[variables('newStorageAccountMaster')]"
 					},
-					"newStorageAccountStorage": {
-						"value": "[variables('newStorageAccountMaster')]"
-					},
 					"diagStorageAccount": {
 						"value": "[variables('diagStorageAccount1')]"
 					},
@@ -1407,9 +1404,6 @@
 						"value": "[variables('newStorageAccountInfra')]"
 					},
 					"newStorageAccountData": {
-						"value": "[variables('newStorageAccountInfra')]"
-					},
-					"newStorageAccountStorage": {
 						"value": "[variables('newStorageAccountInfra')]"
 					},
 					"diagStorageAccount": {
@@ -1497,7 +1491,7 @@
 					"newStorageAccountData": {
 						"value": "[variables('newStorageAccountNodeData')]"
 					},
-					"newStorageAccountStorage": {
+					"newStorageAccountNodeStorage": {
 						"value": "[variables('newStorageAccountNodeStorage')]"
 					},
 					"diagStorageAccount": {
