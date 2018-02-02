@@ -100,7 +100,7 @@ provisioner: kubernetes.io/azure-disk
 parameters:
   kind: managed
   location: ${LOCATION}
-  storageaccounttype: Standard_LRS
+  storageaccounttype: Premium_LRS
 EOF
 
 fi

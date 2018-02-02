@@ -29,12 +29,6 @@
 				"description": "Size of Data Disk"
 			}
 		},
-		"storageDiskSize": {
-			"type": "int",
-			"metadata": {
-				"description": "Size of Data Disk"
-			}
-		},
 		"adminUsername": {
 			"type": "string",
 			"minLength": 1,
@@ -75,12 +69,6 @@
 				"description": "Unmanaged data disk uri"
 			}
 		},
-		"unmanagedStorageDiskUri": {
-			"type": "string",
-			"metadata": {
-				"description": "Unmanaged storage disk uri"
-			}
-		},
 		"role": {
 			"type": "string",
 			"metadata": {
@@ -109,12 +97,6 @@
 			"type": "string",
 			"metadata": {
 				"description": "Storage Account for data disk"
-			}
-		},
-		"newStorageAccountStorage": {
-			"type": "string",
-			"metadata": {
-				"description": "Storage Account for cluster storage disk"
 			}
 		},
 		"diagStorageAccount": {
@@ -161,33 +143,15 @@
 				"diskSizeGB": 64,
 				"osType": "Linux"
 			},
-			"dataDisks": [
-				{
-					"name": "[concat(parameters('hostName'), '-docker-pool')]",
-					"diskSizeGB": "[parameters('dataDiskSize')]",
-					"lun": 0,
-					"managedDisk": {
-						"storageAccountType": "[parameters('vmStorageType')]"
-					},
-					"createOption": "Empty"
-				}, {
-					"name": "[concat(parameters('hostName'), '-storage-pool-0')]",
-					"diskSizeGB": "[parameters('storageDiskSize')]",
-					"lun": 1,
-					"managedDisk": {
-						"storageAccountType": "[parameters('vmStorageType')]"
-					},
-					"createOption": "Empty"
-				}, {
-					"name": "[concat(parameters('hostName'), '-storage-pool-1')]",
-					"diskSizeGB": "[parameters('storageDiskSize')]",
-					"lun": 2,
-					"managedDisk": {
-						"storageAccountType": "[parameters('vmStorageType')]"
-					},
-					"createOption": "Empty"
-				}
-			]
+			"dataDisks": [{
+				"name": "[concat(parameters('hostName'), '-docker-pool')]",
+				"diskSizeGB": "[parameters('dataDiskSize')]",
+				"lun": 0,
+				"managedDisk": {
+					"storageAccountType": "[parameters('vmStorageType')]"
+				},
+				"createOption": "Empty"
+			}]
 		},
 		"unmanagedStorageProfile": {
 			"imageReference": "[parameters('imageReference')]",
@@ -200,35 +164,15 @@
 				"createOption": "FromImage",
 				"diskSizeGB": 64
 			},
-			"dataDisks": [
-				{
-					"name": "[concat(parameters('hostname'), '-docker-pool')]",
-					"diskSizeGB": "[parameters('dataDiskSize')]",
-					"lun": 0,
-					"vhd": {
-						"uri": "[concat(parameters('unmanagedDataDiskUri'), 'vhds/', parameters('hostname'), '-docker-pool.vhd')]"
-					},
-					"createOption": "Empty"
+			"dataDisks": [{
+				"name": "[concat(parameters('hostname'), '-docker-pool')]",
+				"diskSizeGB": "[parameters('dataDiskSize')]",
+				"lun": 0,
+				"vhd": {
+					"uri": "[concat(parameters('unmanagedDataDiskUri'), 'vhds/', parameters('hostname'), '-docker-pool.vhd')]"
 				},
-				{
-					"name": "[concat(parameters('hostname'), '-storage-pool-0')]",
-					"diskSizeGB": "[parameters('StorageDiskSize')]",
-					"lun": 1,
-					"vhd": {
-						"uri": "[concat(parameters('unmanagedStorageDiskUri'), 'vhds/', parameters('hostname'), '-storage-pool-0.vhd')]"
-					},
-					"createOption": "Empty"
-				},
-				{
-					"name": "[concat(parameters('hostname'), '-storage-pool-1')]",
-					"diskSizeGB": "[parameters('StorageDiskSize')]",
-					"lun": 2,
-					"vhd": {
-						"uri": "[concat(parameters('unmanagedStorageDiskUri'), 'vhds/', parameters('hostname'), '-storage-pool-1.vhd')]"
-					},
-					"createOption": "Empty"
-				}
-			]
+				"createOption": "Empty"
+			}]
 		},
 		"storageProfile": "[concat(parameters('storageKind'), 'StorageProfile')]"
 	},
