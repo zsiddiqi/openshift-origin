@@ -1304,6 +1304,9 @@
 					"dataDiskSize": {
 						"value": "[parameters('dataDiskSize')]"
 					},
+					"storageDiskSize": {
+						"value": "[parameters('storageDiskSize')]"
+					},
 					"adminUsername": {
 						"value": "[parameters('adminUsername')]"
 					},
@@ -1385,6 +1388,9 @@
 					},
 					"dataDiskSize": {
 						"value": "[parameters('dataDiskSize')]"
+					},
+					"storageDiskSize": {
+						"value": "[parameters('storageDiskSize')]"
 					},
 					"adminUsername": {
 						"value": "[parameters('adminUsername')]"

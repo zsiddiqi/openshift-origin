@@ -32,6 +32,9 @@
 		"dataDiskSize": {
 			"value": 64
 		},
+		"storageDiskSize": {
+			"value": 128
+		},
 		"adminUsername": {
 			"value": "changeme"
 		},
