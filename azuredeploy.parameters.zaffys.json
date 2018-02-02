@@ -5,21 +5,6 @@
 		"_artifactsLocation": {
 			"value": "https://raw.githubusercontent.com/zsiddiqi/openshift-origin/master/"
 		},
-		"newLabName": {
-			"value": "ZOcpDevLab"
-		},
-		"timeZoneId": {
-			"value": "UTC-05:00"
-		},
-		"labVmShutDownTime": {
-			"value": "19:00"
-		},
-		"maxAllowedVmsPerUser": {
-			"value": 10
-		},
-		"maxAllowedVmsPerLab": {
-			"value": 100
-		},
 		"masterVmSize": {
 			"value": "Standard_DS1_v2"
 		},
@@ -48,10 +33,10 @@
 			"value": 64
 		},
 		"adminUsername": {
-			"value": ""
+			"value": "ocpcladm"
 		},
 		"openshiftPassword": {
-			"value": ""
+			"value": "eu5WUKgI1YVaf"
 		},
 		"enableMetrics": {
 			"value": "false"
@@ -63,31 +48,31 @@
 			"value": "true"
 		},
 		"sshPublicKey": {
-			"value": ""
+			"value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpjbP4/LyrycSobu0Xno9g8DfdiiWW24mPKnBGGjzbWr/0cGKj4nHYGH+RbxSwl8HsW5YAhLbUkKFPTqrOlFqfxB0fdyzpmBsrFRWg6QGYMlxU+YyFdKjP1YkG3bCL6JCPfsOsbEijXBa43ZlMLm1X74OzJ8V79Gj7jOL2Q1BLD+n3XVMV6Vk/J7SBZVizRF69CduHgWXPYvTgqqj/YvZk7Q3oFxTrloONaKZj8jwnWQMojcLimC300Q4jUNZFVs9mfnq2sLRzPbf1n0bM+pxasltbAl5/79QsvZaoGd6JpEqBMZn9G0m5qQ0UZjmYv314/NIS4KqnDCwVw1B98Yyt Zaf@hptabm"
 		},
 		"keyVaultResourceGroup": {
-			"value": ""
+			"value": "ZOcpDevLabRG"
 		},
 		"keyVaultName": {
-			"value": ""
+			"value": "ZOcpDevLabKV"
 		},
 		"keyVaultSecret": {
-			"value": ""
+			"value": "ocpclsecret"
 		},
 		"enableAzure": {
-			"value": "true"
+			"value": "false"
 		},
 		"aadClientId": {
-			"value": ""
+			"value": "3d2f2b3f-689f-46a5-b81e-5014b636506f"
 		},
 		"aadClientSecret": {
-			"value": ""
+			"value": "SoxGJdCy1WWYPkECg"
 		},
 		"defaultSubDomainType": {
 			"value": "nipio"
 		},
 		"defaultSubDomain": {
-			"value": ""
+			"value": "leap"
 		}
 	}
 }
