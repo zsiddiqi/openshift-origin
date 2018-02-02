@@ -133,6 +133,15 @@
 				"description": "Size of Datadisk in GB for Docker volume"
 			}
 		},
+		"storageDiskSize": {
+			"type": "int",
+			"defaultValue": 128,
+			"minValue": 1,
+			"allowedValues": [32, 64, 128, 256, 512, 1024, 2048],
+			"metadata": {
+				"description": "Size of Storagedisk in GB for Docker volume"
+			}
+		},
 		"adminUsername": {
 			"type": "string",
 			"defaultValue": "ocpadmin",
