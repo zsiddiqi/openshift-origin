@@ -316,7 +316,7 @@
 				"skuTier": "Standard"
 			}
 		},
-		"managedStorageCount": 3,
+		"managedStorageCount": 4,
 		"unmanagedStorageCount": "[length(variables('newStorageAccountArray'))]",
 		"storageLoopCount": "[concat(parameters('storageKind'), 'StorageCount')]",
 		"unmanagedMasterUri": "[variables('newStorageAccountMaster')]",
@@ -333,6 +333,7 @@
 		"infraUri": "[concat(parameters('storageKind'), 'InfraUri')]",
 		"nodeOsUri": "[concat(parameters('storageKind'), 'NodeOsUri')]",
 		"nodeDataUri": "[concat(parameters('storageKind'), 'NodeDataUri')]",
+		"nodeStorageUri": "[concat(parameters('storageKind'), 'NodeStorageUri')]",
 		"addressPrefix": "10.0.0.0/8",
 		"masterSubnetPrefix": "10.1.0.0/16",
 		"nodeSubnetPrefix": "10.2.0.0/16",
@@ -1323,6 +1324,9 @@
 					"newStorageAccountData": {
 						"value": "[variables('newStorageAccountMaster')]"
 					},
+					"newStorageAccountStorage": {
+						"value": "[variables('newStorageAccountMaster')]"
+					},
 					"diagStorageAccount": {
 						"value": "[variables('diagStorageAccount1')]"
 					},
@@ -1405,6 +1409,9 @@
 					"newStorageAccountData": {
 						"value": "[variables('newStorageAccountInfra')]"
 					},
+					"newStorageAccountStorage": {
+						"value": "[variables('newStorageAccountInfra')]"
+					},
 					"diagStorageAccount": {
 						"value": "[variables('diagStorageAccount1')]"
 					},
@@ -1471,6 +1478,9 @@
 					},
 					"unmanagedDataDiskUri": {
 						"value": "[reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables(variables('nodeDataUri'))), variables('apiVersionStorage')).primaryEndpoints['blob']]"
+					},
+					"unmanagedDataStorageUri": {
+						"value": "[reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables(variables('nodeStorageUri'))), variables('apiVersionStorage')).primaryEndpoints['blob']]"
 					},
 					"role": {
 						"value": "appnode"
